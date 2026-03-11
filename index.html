@@ -13,310 +13,282 @@
             --ssj4-gold: #ffd700;
             --ssj4-black: #0a0a0a;
             --ssj4-dark: #111;
-            --glass: rgba(20, 20, 20, 0.95);
-            --neon-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
-            --border-futuristic: 1px solid rgba(255, 0, 0, 0.3);
+            --glass: rgba(20, 20, 20, 0.98);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
         
-        html, body { 
-            background-color: var(--ssj4-black); 
-            color: white; 
-            overflow: hidden; 
-            height: 100%; 
-            width: 100vw; 
-            display: flex; 
-            justify-content: center;
-        }
+        body { background-color: var(--ssj4-black); color: white; overflow: hidden; height: 100vh; display: flex; justify-content: center; }
 
         #mobile-container { 
-            width: 100%; 
-            max-width: 450px; 
-            height: 100dvh; 
+            width: 100%; max-width: 450px; height: 100dvh; 
             background: linear-gradient(135deg, #000 0%, #1a0000 100%); 
-            position: relative; 
-            border-left: 1px solid var(--ssj4-red); 
-            border-right: 1px solid var(--ssj4-red); 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
+            position: relative; border: 1px solid var(--ssj4-red); overflow: hidden; display: flex; flex-direction: column; 
         }
 
-        .icon-btn {
-            background: transparent !important;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5px;
-            outline: none;
-        }
+        /* BOTOES E ICONES */
+        .icon-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; outline: none; transition: 0.3s; }
+        .svg-icon { width: 26px; height: 26px; fill: none; stroke: var(--ssj4-orange); stroke-width: 2; filter: drop-shadow(0 0 3px var(--ssj4-orange)); }
+        
+        /* SPLASH */
+        #splash-screen { position: absolute; inset: 0; z-index: 1000; background: black; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .ssj4-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: var(--ssj4-red); text-shadow: 0 0 15px var(--ssj4-red); }
+        .loader-bar { width: 0%; height: 6px; background: linear-gradient(90deg, var(--ssj4-red), var(--ssj4-gold)); animation: fillBar 4.5s forwards; }
 
-        .svg-icon { width: 28px; height: 28px; fill: none; stroke: var(--ssj4-orange); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--ssj4-orange)); }
-        
-        #splash-screen { position: absolute; inset: 0; z-index: 100; background: black; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1); }
-        .ssj4-title { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: var(--ssj4-red); text-shadow: 0 0 15px var(--ssj4-red); animation: pulse 2s infinite; }
-        .onipresente-text { font-size: 1.2rem; letter-spacing: 8px; color: var(--ssj4-gold); margin-bottom: 20px; }
-        .obs-text { font-size: 0.7rem; color: #555; margin-bottom: 40px; }
-        .loader-container { width: 70%; height: 6px; background: #222; border-radius: 10px; overflow: hidden; border: 1px solid var(--ssj4-dark-red); }
-        .loader-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--ssj4-red), var(--ssj4-gold)); box-shadow: 0 0 10px var(--ssj4-red); animation: fillBar 5s forwards; }
-        .by-goat { margin-top: 15px; font-size: 0.9rem; color: var(--ssj4-gold); font-weight: bold; }
-        
-        #auth-screen { display: none; padding: 20px; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
-        .profile-upload { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--ssj4-red); background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 20px; overflow: hidden; box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
+        /* AUTH */
+        #auth-screen { padding: 20px; flex-direction: column; align-items: center; justify-content: center; height: 100%; display: flex; }
+        .profile-upload { width: 130px; height: 130px; border-radius: 50%; border: 3px solid var(--ssj4-red); background: #111; margin-bottom: 20px; overflow: hidden; position: relative; }
         .profile-upload img { width: 100%; height: 100%; object-fit: cover; }
-        .auth-input { width: 80%; padding: 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ssj4-dark-red); border-radius: 5px; color: white; outline: none; }
-        .btn-ssj4 { width: 80%; padding: 15px; background: var(--ssj4-red); border: none; color: white; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); transition: 0.3s; }
-        
-        #app-screen { display: none; flex-direction: column; height: 100%; width: 100%; }
-        
-        .header { 
-            height: 25%; 
-            min-height: 150px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            position: relative; 
-            background: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') center/cover; 
-            border-bottom: 2px solid var(--ssj4-red); 
-        }
-        .header-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.8); }
-        .header-content { z-index: 2; text-align: center; }
-        .top-icons { position: absolute; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 3; }
-        
-        .chat-container { flex: 1; background: var(--ssj4-black); display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .auth-input { width: 85%; padding: 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ssj4-dark-red); border-radius: 5px; color: white; }
+        .btn-ssj4 { width: 85%; padding: 15px; background: var(--ssj4-red); border: none; color: white; font-weight: bold; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); cursor: pointer; }
 
-        #chat-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
-        .message { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border-left: 3px solid var(--ssj4-dark-red); }
-        .msg-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-        .msg-avatar { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--ssj4-gold); object-fit: cover; }
-        .msg-name { font-weight: bold; font-size: 0.95rem; color: var(--ssj4-gold); font-family: 'Orbitron', sans-serif; }
-        .admin-delete-btn { color: var(--ssj4-red); font-size: 0.7rem; border: 1px solid var(--ssj4-red); padding: 2px; margin-left: 5px; border-radius: 3px; cursor: pointer; }
+        /* HEADER COM FUNDO */
+        .header { height: 20%; min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; background: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=500&q=60') center/cover; border-bottom: 2px solid var(--ssj4-red); }
+        .header-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+        .top-icons { position: absolute; top: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; z-index: 3; }
 
-        /* AQUI ESTÁ O AJUSTE PARA SUBIR O CHAT BEM MAIS */
-        .chat-input-area { 
-            padding: 15px 15px 120px 15px; /* Aumentado de 75px para 120px */
-            background: var(--ssj4-dark); 
-            display: flex; 
-            gap: 10px; 
-            align-items: center; 
-            border-top: 1px solid #333;
-            z-index: 10;
-        }
-        #chat-msg-input { flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 5px; color: white; outline: none; }
+        /* CHAT */
+        .chat-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: rgba(0,0,0,0.4); }
+        #chat-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
+        .message { background: rgba(20, 20, 20, 0.8); padding: 12px; border-radius: 10px; border: 1px solid #333; border-left: 4px solid var(--ssj4-red); }
+        .msg-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .msg-avatar { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--ssj4-gold); object-fit: cover; cursor: pointer; }
+        .msg-name { font-weight: bold; color: var(--ssj4-gold); font-family: 'Orbitron'; font-size: 0.9rem; }
+        .msg-time { font-size: 0.6rem; color: #666; margin-left: auto; }
 
-        .futuristic-panel { position: absolute; bottom: -100%; left: 0; width: 100%; height: 85%; background: var(--glass); backdrop-filter: blur(10px); z-index: 200; border-top: 2px solid var(--ssj4-orange); border-radius: 20px 20px 0 0; padding: 20px; transition: bottom 0.5s; }
+        /* INPUT AREA */
+        .chat-input-area { padding: 15px; background: #0a0a0a; display: flex; gap: 10px; align-items: center; border-top: 1px solid #222; }
+        #chat-msg-input { flex: 1; padding: 10px; background: #1a1a1a; border: 1px solid #333; border-radius: 4px; color: white; }
+
+        /* PAINÉIS */
+        .futuristic-panel { position: absolute; bottom: -100%; left: 0; width: 100%; height: 85%; background: var(--glass); z-index: 200; border-top: 2px solid var(--ssj4-red); border-radius: 25px 25px 0 0; padding: 20px; transition: 0.5s; display: flex; flex-direction: column; }
         .futuristic-panel.active { bottom: 0; }
-        .panel-content { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-top: 20px;}
-        .news-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border-left: 3px solid var(--ssj4-orange); position: relative; margin-bottom: 10px;}
-        .poll-btn { width: 100%; padding: 8px; background: rgba(255,255,255,0.1); border: 1px solid #444; color: white; text-align: left; margin-top: 5px; border-radius: 4px; }
+        .panel-content { flex: 1; overflow-y: auto; margin: 15px 0; }
+
+        /* ALERTAS */
+        #alert-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: #111; border: 2px solid var(--ssj4-red); padding: 20px; z-index: 3000; text-align: center; transition: 0.3s; }
+        #alert-modal.active { transform: translate(-50%, -50%) scale(1); }
 
         @keyframes fillBar { from { width: 0%; } to { width: 100%; } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
 <div id="mobile-container">
+    <!-- SVG ICONS -->
     <svg style="display: none;">
-        <symbol id="icon-news" viewBox="0 0 24 24"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l4 4v10a2 2 0 0 1-2 2z"></path><path d="M7 8h6"></path><path d="M7 12h10"></path></symbol>
+        <symbol id="icon-news" viewBox="0 0 24 24"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10l4 4v10a2 2 0 0 1-2 2z"></path></symbol>
         <symbol id="icon-admin" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"></path></symbol>
-        <symbol id="icon-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></symbol>
-        <symbol id="icon-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polyline points="22 2 15 22 11 13 2 9 22 2"></polyline></symbol>
+        <symbol id="icon-rank" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></symbol>
+        <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></symbol>
+        <symbol id="icon-flower" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M2 12h4M18 12h4"></path></symbol>
+        <symbol id="icon-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></symbol>
+        <symbol id="icon-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></symbol>
     </svg>
 
+    <!-- SPLASH -->
     <div id="splash-screen">
         <h1 class="ssj4-title">SON GOKU</h1>
-        <p class="onipresente-text">O ONIPRESENTE</p>
-        <p class="obs-text">Obs: Adm Vai Libera O Caneco Um Dia...</p>
-        <div class="loader-container"><div class="loader-bar"></div></div>
-        <p class="by-goat">By: Goat</p>
+        <p style="color:var(--ssj4-gold); letter-spacing: 5px;">O ONIPRESENTE</p>
+        <div style="width:70%; background: #222; height: 6px; margin: 20px; border-radius: 10px; overflow: hidden;">
+            <div class="loader-bar"></div>
+        </div>
+        <p style="font-size:0.8rem; color:#444">By: Goat</p>
     </div>
 
-    <div id="auth-screen">
-        <h2 id="auth-title" style="color:var(--ssj4-gold); margin-bottom:20px;">REGISTRAR</h2>
-        <div class="profile-upload" onclick="document.getElementById('file-input').click()">
+    <!-- AUTH -->
+    <div id="auth-screen" class="hidden">
+        <h2 id="auth-title" style="color:var(--ssj4-gold); font-family:'Orbitron'; margin-bottom:15px">REGISTRAR</h2>
+        <div class="profile-upload" id="profile-upload-container" onclick="document.getElementById('file-input').click()">
             <img id="preview" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
         </div>
         <input type="file" id="file-input" class="hidden" accept="image/*" onchange="previewImage(this)">
-        <input type="text" id="user-name" class="auth-input" placeholder="Nome">
+        <input type="text" id="user-name" class="auth-input" placeholder="Nome do Guerreiro">
         <input type="password" id="user-pass" class="auth-input" placeholder="Senha">
-        <button class="btn-ssj4" onclick="handleAuth()">Confirmar</button>
-        <p onclick="toggleAuthMode()" style="cursor:pointer; margin-top:10px; color:#aaa;">Já tenho uma conta</p>
+        <button class="btn-ssj4" onclick="handleAuth()">CONFIRMAR</button>
+        <p onclick="toggleAuthMode()" style="margin-top:15px; color:#777; cursor:pointer">Já tem conta? Login</p>
     </div>
 
-    <div id="app-screen">
+    <!-- APP -->
+    <div id="app-screen" class="hidden" style="flex-direction: column; height: 100%;">
         <div class="header">
             <div class="header-overlay"></div>
             <div class="top-icons">
-                <button class="icon-btn" onclick="openNews()"><svg class="svg-icon"><use xlink:href="#icon-news"></use></svg></button>
-                <button class="icon-btn" onclick="toggleAdminPanel()"><svg class="svg-icon"><use xlink:href="#icon-admin"></use></svg></button>
+                <button class="icon-btn" onclick="openPanel('news-panel')"><svg class="svg-icon"><use xlink:href="#icon-news"></use></svg></button>
+                <div style="display:flex; gap:12px">
+                    <button class="icon-btn" onclick="openPanel('rank-panel')"><svg class="svg-icon"><use xlink:href="#icon-rank"></use></svg></button>
+                    <button class="icon-btn" onclick="openPanel('admin-panel')"><svg class="svg-icon"><use xlink:href="#icon-admin"></use></svg></button>
+                </div>
             </div>
-            <div class="header-content">
-                <h2 style="font-family:'Orbitron'; color:var(--ssj4-red)">COMUNIDADE</h2>
-                <p style="color:var(--ssj4-gold)">DO ONIPRESENTE</p>
+            <div style="z-index:2; text-align:center">
+                <h2 style="font-family:'Orbitron'; color:var(--ssj4-red); font-size: 1.4rem;">COMUNIDADE</h2>
+                <p style="color:var(--ssj4-gold); font-size: 0.8rem; letter-spacing: 3px;">DO ONIPRESENTE</p>
             </div>
         </div>
 
         <div class="chat-container">
             <div id="chat-messages"></div>
             <div class="chat-input-area">
-                <button class="icon-btn" onclick="document.getElementById('chat-file').click()"><svg class="svg-icon"><use xlink:href="#icon-image"></use></svg></button>
-                <input type="file" id="chat-file" class="hidden" accept="image/*" onchange="chatFileSelected()">
-                <input type="text" id="chat-msg-input" placeholder="Mensagem...">
-                <button class="icon-btn" onclick="sendMessage()"><svg class="svg-icon"><use xlink:href="#icon-send"></use></svg></button>
+                <input type="text" id="chat-msg-input" placeholder="Digite sua mensagem...">
+                <button class="icon-btn" onclick="sendMessage()"><svg class="svg-icon" style="stroke:var(--ssj4-red)"><use xlink:href="#icon-send"></use></svg></button>
             </div>
         </div>
 
+        <!-- PAINEL RANKING -->
+        <div id="rank-panel" class="futuristic-panel">
+            <h3 style="color:var(--ssj4-gold); font-family:'Orbitron'">TOP 10 GUERREIROS</h3>
+            <div id="rank-list" class="panel-content"></div>
+            <button class="btn-ssj4" style="width:100%" onclick="closePanels()">VOLTAR</button>
+        </div>
+
+        <!-- PAINEL NOTÍCIAS -->
         <div id="news-panel" class="futuristic-panel">
             <h3 style="color:var(--ssj4-gold)">NOTÍCIAS E ENQUETES</h3>
             <div id="news-content-list" class="panel-content"></div>
             <button class="btn-ssj4" style="width:100%" onclick="closePanels()">FECHAR</button>
         </div>
 
+        <!-- PAINEL ADMIN -->
         <div id="admin-panel" class="futuristic-panel">
-            <h3 style="color:var(--ssj4-red)">PAINEL ADMIN</h3>
+            <h3 style="color:var(--ssj4-red)">PAINEL SUPREMO</h3>
             <div class="panel-content">
                 <div id="admin-login-prompt">
-                    <input type="password" id="admin-pass-input" class="auth-input" style="width:100%" placeholder="Senha Admin">
-                    <button class="btn-ssj4" style="width:100%" onclick="checkAdminPass()">LOGAR ADM</button>
+                    <input type="password" id="admin-pass-input" class="auth-input" style="width:100%" placeholder="Senha Suprema">
+                    <button class="btn-ssj4" style="width:100%" onclick="checkAdminPass()">ACESSAR</button>
                 </div>
                 <div id="admin-tools" class="hidden">
-                    <input type="text" id="news-title" class="auth-input" style="width:100%" placeholder="Título">
-                    <textarea id="news-body" class="auth-input" style="width:100%; height:60px" placeholder="Mensagem"></textarea>
-                    <button class="btn-ssj4" style="width:100%; margin-bottom:10px;" onclick="publishNews()">POSTAR NOTÍCIA</button>
-                    <hr>
-                    <input type="text" id="poll-q" class="auth-input" style="width:100%" placeholder="Pergunta Enquete">
+                    <input type="text" id="news-title" class="auth-input" style="width:100%" placeholder="Título da Notícia">
+                    <textarea id="news-body" class="auth-input" style="width:100%; height:60px" placeholder="Conteúdo"></textarea>
+                    <button class="btn-ssj4" style="width:100%; margin-bottom:15px;" onclick="publishNews()">POSTAR NOTÍCIA</button>
+                    <hr style="border:0; border-top:1px solid #333; margin:15px 0">
+                    <input type="text" id="poll-q" class="auth-input" style="width:100%" placeholder="Pergunta da Enquete">
                     <button class="btn-ssj4" style="width:100%; background:var(--ssj4-gold); color:black" onclick="publishPoll()">CRIAR ENQUETE</button>
                 </div>
             </div>
             <button class="btn-ssj4" style="width:100%; background:#333" onclick="closePanels()">VOLTAR</button>
         </div>
+
+        <!-- PAINEL PERFIL -->
+        <div id="profile-panel" class="futuristic-panel">
+            <div id="profile-content" class="panel-content" style="text-align:center"></div>
+            <button class="btn-ssj4" style="width:100%" onclick="closePanels()">VOLTAR</button>
+        </div>
+
+        <!-- MODAL ALERTA -->
+        <div id="alert-modal">
+            <p style="color:var(--ssj4-red); font-weight:bold;">ACESSO NEGADO</p>
+            <p style="font-size:0.8rem; margin:10px 0;">Somente o Administrador pode dar Flores.</p>
+            <button class="btn-ssj4" style="width:50px; padding:5px" onclick="closeAlert()">OK</button>
+        </div>
     </div>
 </div>
 
-<!-- SCRIPTS DO FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
 <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCkzu5uIY88m2WbLXTaczE_feBYPNUnHBo",
-      authDomain: "songoku-9b831.firebaseapp.com",
-      projectId: "songoku-9b831",
-      storageBucket: "songoku-9b831.firebasestorage.app",
-      messagingSenderId: "188094830557",
-      appId: "1:188094830557:web:451b0be3fd5646c32ac834"
-    };
-
-    let db;
-    try { 
-        // Inicialização garantida
-        const app = firebase.initializeApp(firebaseConfig); 
-        db = firebase.firestore(app);
-        // Habilita persistência para não ficar offline em mobile
-        db.settings({ experimentalForceLongPolling: true }); 
-        console.log("Firebase Conectado com Sucesso!");
-    } catch(e) { 
-        console.error("Erro na conexão Firebase: ", e); 
-    }
+    const firebaseConfig = { apiKey: "AIzaSyCkzu5uIY88m2WbLXTaczE_feBYPNUnHBo", authDomain: "songoku-9b831.firebaseapp.com", projectId: "songoku-9b831", storageBucket: "songoku-9b831.firebasestorage.app", messagingSenderId: "188094830557", appId: "1:188094830557:web:451b0be3fd5646c32ac834" };
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore(app);
 
     let currentUser = null;
     let isAdminAuthenticated = false;
-    let selectedChatFileBase64 = null;
+    let authMode = "REGISTRAR";
 
+    // Splash Timer
     setTimeout(() => { 
-        document.getElementById('splash-screen').style.transform = 'translateY(-100%)'; 
-        document.getElementById('auth-screen').style.display = 'flex'; 
-    }, 5000);
+        document.getElementById('splash-screen').style.display = 'none'; 
+        document.getElementById('auth-screen').classList.remove('hidden'); 
+    }, 4500);
 
-    function toggleAuthMode() { 
-        const t = document.getElementById('auth-title'); 
-        t.innerText = t.innerText === "REGISTRAR" ? "LOGIN" : "REGISTRAR"; 
-    }
-    
-    function previewImage(i) { 
-        if (i.files && i.files[0]) { 
-            let r = new FileReader(); 
-            r.onload = (e) => { document.getElementById('preview').src = e.target.result; }; 
-            r.readAsDataURL(i.files[0]); 
-        } 
+    function toggleAuthMode() {
+        authMode = authMode === "REGISTRAR" ? "LOGIN" : "REGISTRAR";
+        document.getElementById('auth-title').innerText = authMode;
+        document.getElementById('profile-upload-container').style.display = authMode === "LOGIN" ? "none" : "flex";
     }
 
-    function handleAuth() {
+    function previewImage(i) { if (i.files && i.files[0]) { let r = new FileReader(); r.onload = (e) => { document.getElementById('preview').src = e.target.result; }; r.readAsDataURL(i.files[0]); } }
+
+    async function handleAuth() {
         const name = document.getElementById('user-name').value;
-        if(name.length < 3) return alert("Nome curto!");
-        currentUser = { name, img: document.getElementById('preview').src };
-        document.getElementById('auth-screen').classList.add('hidden');
-        document.getElementById('app-screen').style.display = 'flex';
-        addLocalMessage("SISTEMA", "https://cdn-icons-png.flaticon.com/512/9131/9131529.png", `Bem-vindo, ${name}!`);
-        if(db) { initChat(); initNews(); }
-    }
+        const pass = document.getElementById('user-pass').value;
+        if(!name || !pass) return alert("Preencha tudo!");
 
-    function addLocalMessage(n, i, t) {
-        const chat = document.getElementById('chat-messages');
-        const div = document.createElement('div');
-        div.className = 'message';
-        div.style.borderLeftColor = 'var(--ssj4-gold)';
-        div.innerHTML = `<div class="msg-header"><img src="${i}" class="msg-avatar"><span class="msg-name">${n}</span></div><div class="msg-body">${t}</div>`;
-        chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
+        if(authMode === "REGISTRAR") {
+            const userRef = db.collection("usuarios").doc(name);
+            const doc = await userRef.get();
+            if(doc.exists) return alert("Nome já em uso!");
+            currentUser = { name, pass, img: document.getElementById('preview').src, posts: 0, profileLikes: 0 };
+            await userRef.set(currentUser);
+        } else {
+            const doc = await db.collection("usuarios").doc(name).get();
+            if(!doc.exists || doc.data().pass !== pass) return alert("Dados incorretos!");
+            currentUser = doc.data();
+        }
+        
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('app-screen').classList.remove('hidden');
+        initChat(); initNews(); updateRanking();
     }
 
     function initChat() {
         db.collection("mensagens").orderBy("timestamp", "asc").onSnapshot(s => {
-            document.getElementById('chat-messages').innerHTML = "";
-            addLocalMessage("SISTEMA", "https://cdn-icons-png.flaticon.com/512/9131/9131529.png", `Bem-vindo!`);
+            const chat = document.getElementById('chat-messages');
+            chat.innerHTML = "";
             s.forEach(doc => {
                 const m = doc.data();
-                renderMsg(m.name, m.img, m.text, m.imageBase64, doc.id);
+                const time = m.timestamp ? new Date(m.timestamp.seconds * 1000).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
+                renderMsg(m.name, m.img, m.text, doc.id, time, m.likedBy || [], m.flowers || 0);
             });
-        }, (error) => {
-            console.error("Erro no Snapshot: ", error);
+            chat.scrollTop = chat.scrollHeight;
         });
     }
 
-    function renderMsg(n, i, t, img, id) {
+    function renderMsg(n, i, t, id, time, likedBy, flowers) {
         const chat = document.getElementById('chat-messages');
+        const hasLiked = likedBy.includes(currentUser.name);
         const div = document.createElement('div');
         div.className = 'message';
-        let del = isAdminAuthenticated ? `<span class="admin-delete-btn" onclick="deleteMsg('${id}')">APAGAR</span><span class="admin-delete-btn" style="color:orange; border-color:orange" onclick="banUser('${n}')">BAN</span>` : '';
-        div.innerHTML = `<div class="msg-header"><img src="${i}" class="msg-avatar"><span class="msg-name">${n}</span>${del}</div><div class="msg-body">${t || ""} ${img ? `<br><img src="${img}" style="max-width:100%; border-radius:5px; margin-top:5px;">` : ''}</div>`;
+        div.innerHTML = `
+            <div class="msg-header">
+                <img src="${i}" class="msg-avatar" onclick="openProfile('${n}')">
+                <span class="msg-name">${n}</span>
+                ${isAdminAuthenticated ? `<button class="icon-btn" onclick="deleteDoc('mensagens','${id}')"><svg class="svg-icon" style="width:16px; stroke:red"><use xlink:href="#icon-trash"></use></svg></button>` : ''}
+                <span class="msg-time">${time}</span>
+            </div>
+            <div class="msg-body">${t}</div>
+            <div style="display:flex; gap:15px; margin-top:8px; border-top:1px solid #222; padding-top:5px">
+                <button class="icon-btn" onclick="likeMsg('${id}', ${hasLiked})">
+                    <svg class="svg-icon" style="width:18px; stroke:${hasLiked ? 'red' : '#666'}"><use xlink:href="#icon-heart"></use></svg>
+                </button>
+                <span style="font-size:0.8rem; color:var(--ssj4-gold)">${likedBy.length}</span>
+                <button class="icon-btn" onclick="tryFlower('${id}')">
+                    <svg class="svg-icon" style="width:18px; stroke:var(--ssj4-gold)"><use xlink:href="#icon-flower"></use></svg>
+                </button>
+                <span style="font-size:0.8rem; color:var(--ssj4-gold)">${flowers}</span>
+            </div>
+        `;
         chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
     }
 
     async function sendMessage() {
         const input = document.getElementById('chat-msg-input');
-        if(!input.value && !selectedChatFileBase64) return;
-        if(db) {
-            db.collection("mensagens").add({ name: currentUser.name, img: currentUser.img, text: input.value, imageBase64: selectedChatFileBase64, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-        } else {
-            renderMsg(currentUser.name, currentUser.img, input.value, selectedChatFileBase64, "local");
-        }
-        input.value = ""; selectedChatFileBase64 = null;
+        if(!input.value) return;
+        await db.collection("mensagens").add({
+            name: currentUser.name, img: currentUser.img, text: input.value, 
+            likedBy: [], flowers: 0, timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        await db.collection("usuarios").doc(currentUser.name).update({ posts: firebase.firestore.FieldValue.increment(1) });
+        input.value = "";
     }
 
-    function chatFileSelected() { 
-        const f = document.getElementById('chat-file').files[0]; 
-        if(f) { 
-            const r = new FileReader(); 
-            r.onload = (e) => { 
-                selectedChatFileBase64 = e.target.result; 
-                alert("Imagem pronta para envio!"); 
-            }; 
-            r.readAsDataURL(f); 
-        } 
+    function openPanel(id) { 
+        closePanels(); 
+        document.getElementById(id).classList.add('active'); 
     }
-
-    function openNews() { closePanels(); setTimeout(() => { document.getElementById('news-panel').classList.add('active'); }, 50); }
-    function toggleAdminPanel() { closePanels(); setTimeout(() => { document.getElementById('admin-panel').classList.add('active'); }, 50); }
+    
     function closePanels() { 
-        document.getElementById('news-panel').classList.remove('active'); 
-        document.getElementById('admin-panel').classList.remove('active'); 
+        document.querySelectorAll('.futuristic-panel').forEach(p => p.classList.remove('active')); 
     }
 
     function checkAdminPass() {
@@ -324,24 +296,26 @@
             isAdminAuthenticated = true;
             document.getElementById('admin-login-prompt').classList.add('hidden');
             document.getElementById('admin-tools').classList.remove('hidden');
-            alert("Acesso Admin!");
-        }
+            initChat();
+        } else { alert("Senha incorreta!"); }
     }
 
-    function publishNews() {
+    async function publishNews() {
         const t = document.getElementById('news-title').value;
         const b = document.getElementById('news-body').value;
-        if(db && t) { 
-            db.collection("noticias").add({ title: t, body: b, type: 'news', timestamp: firebase.firestore.FieldValue.serverTimestamp() })
-            .then(() => { closePanels(); document.getElementById('news-title').value = ""; document.getElementById('news-body').value = ""; });
+        if(t && b) {
+            await db.collection("noticias").add({ title: t, body: b, type: 'news', timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+            alert("Notícia Publicada!");
+            closePanels();
         }
     }
 
-    function publishPoll() {
+    async function publishPoll() {
         const q = document.getElementById('poll-q').value;
-        if(db && q) { 
-            db.collection("noticias").add({ title: q, type: 'poll', timestamp: firebase.firestore.FieldValue.serverTimestamp() })
-            .then(() => { closePanels(); document.getElementById('poll-q').value = ""; });
+        if(q) {
+            await db.collection("noticias").add({ title: q, type: 'poll', timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+            alert("Enquete Criada!");
+            closePanels();
         }
     }
 
@@ -352,19 +326,59 @@
             s.forEach(doc => {
                 const n = doc.data();
                 const div = document.createElement('div');
-                div.className = 'news-item';
-                if(n.type === 'poll') {
-                    div.innerHTML = `<h4 style="color:var(--ssj4-gold)">ENQUETE: ${n.title}</h4><button class="poll-btn">CONCORDO</button><button class="poll-btn">DISCORDO</button>`;
-                } else {
-                    div.innerHTML = `<h4 style="color:var(--ssj4-red)">${n.title}</h4><p>${n.body}</p>`;
-                }
+                div.style = "background:rgba(255,255,255,0.05); padding:12px; border-radius:8px; margin-bottom:10px; border-left:3px solid " + (n.type==='news'?'red':'gold');
+                div.innerHTML = `<h4>${n.title}</h4><p>${n.body || ''}</p>`;
                 list.appendChild(div);
             });
         });
     }
 
-    function deleteMsg(id) { if(db) db.collection("mensagens").doc(id).delete(); }
-    function banUser(n) { if(db) { db.collection("banidos").doc(n).set({banned: true}); alert("Banido!"); } }
+    function updateRanking() {
+        db.collection("usuarios").orderBy("posts", "desc").limit(10).onSnapshot(s => {
+            const list = document.getElementById('rank-list');
+            list.innerHTML = "";
+            let rank = 1;
+            s.forEach(doc => {
+                const u = doc.data();
+                const div = document.createElement('div');
+                div.style = "display:flex; align-items:center; gap:10px; background:#111; padding:10px; margin-bottom:5px; border-radius:5px";
+                div.innerHTML = `<span>#${rank++}</span><img src="${u.img}" class="msg-avatar" onclick="openProfile('${u.name}')"><div><b>${u.name}</b><br><small>${u.posts} Posts</small></div>`;
+                list.appendChild(div);
+            });
+        });
+    }
+
+    async function openProfile(name) {
+        const doc = await db.collection("usuarios").doc(name).get();
+        const u = doc.data();
+        const pContent = document.getElementById('profile-content');
+        pContent.innerHTML = `
+            <img src="${u.img}" style="width:100px; height:100px; border-radius:50%; border:3px solid red">
+            <h2 style="color:var(--ssj4-gold); margin:10px 0">${u.name}</h2>
+            <p>Postagens: ${u.posts}</p>
+            <p>Likes: ${u.profileLikes || 0}</p>
+            <button class="btn-ssj4" style="margin-top:10px" onclick="likeProfile('${name}')">CURTIR GUERREIRO</button>
+        `;
+        openPanel('profile-panel');
+    }
+
+    async function likeProfile(name) {
+        await db.collection("usuarios").doc(name).update({ profileLikes: firebase.firestore.FieldValue.increment(1) });
+        alert("Você curtiu o perfil!");
+    }
+
+    function likeMsg(id, hasLiked) {
+        if(hasLiked) return;
+        db.collection("mensagens").doc(id).update({ likedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.name) });
+    }
+
+    function tryFlower(id) {
+        if(!isAdminAuthenticated) { document.getElementById('alert-modal').classList.add('active'); }
+        else { db.collection("mensagens").doc(id).update({ flowers: firebase.firestore.FieldValue.increment(1) }); }
+    }
+
+    function closeAlert() { document.getElementById('alert-modal').classList.remove('active'); }
+    function deleteDoc(col, id) { if(confirm("Apagar?")) db.collection(col).doc(id).delete(); }
 </script>
 </body>
 </html>
