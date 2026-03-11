@@ -33,7 +33,6 @@
             width: 100%; 
             max-width: 450px; 
             height: 100dvh; 
-            height: 100vh;
             background: linear-gradient(135deg, #000 0%, #1a0000 100%); 
             position: relative; 
             border-left: 1px solid var(--ssj4-red); 
@@ -43,15 +42,15 @@
             flex-direction: column; 
         }
 
-        /* Botões sem fundo branco */
         .icon-btn {
-            background: transparent;
+            background: transparent !important;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 5px;
+            outline: none;
         }
 
         .svg-icon { width: 28px; height: 28px; fill: none; stroke: var(--ssj4-orange); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--ssj4-orange)); }
@@ -70,16 +69,11 @@
         .auth-input { width: 80%; padding: 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ssj4-dark-red); border-radius: 5px; color: white; outline: none; }
         .btn-ssj4 { width: 80%; padding: 15px; background: var(--ssj4-red); border: none; color: white; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); transition: 0.3s; }
         
-        #app-screen { 
-            display: none; 
-            flex-direction: column;
-            height: 100%; 
-            width: 100%; 
-        }
+        #app-screen { display: none; flex-direction: column; height: 100%; width: 100%; }
         
         .header { 
-            height: 30%; 
-            min-height: 180px;
+            height: 25%; 
+            min-height: 150px;
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -92,39 +86,23 @@
         .header-content { z-index: 2; text-align: center; }
         .top-icons { position: absolute; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 3; }
         
-        .chat-container { 
-            flex: 1; 
-            background: var(--ssj4-black); 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden;
-            position: relative;
-        }
+        .chat-container { flex: 1; background: var(--ssj4-black); display: flex; flex-direction: column; overflow: hidden; position: relative; }
 
-        #chat-messages { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            scroll-behavior: smooth; 
-        }
+        #chat-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
         .message { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border-left: 3px solid var(--ssj4-dark-red); }
         .msg-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
         .msg-avatar { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--ssj4-gold); object-fit: cover; }
         .msg-name { font-weight: bold; font-size: 0.95rem; color: var(--ssj4-gold); font-family: 'Orbitron', sans-serif; }
         .admin-delete-btn { color: var(--ssj4-red); font-size: 0.7rem; border: 1px solid var(--ssj4-red); padding: 2px; margin-left: 5px; border-radius: 3px; cursor: pointer; }
 
-        /* AREA DE INPUT SUBIDA PARA MOBILE */
+        /* AREA DE INPUT - SUBI PARA NAO FICAR EMBAIXO NO MOBILE */
         .chat-input-area { 
-            padding: 15px 15px 30px 15px; /* Aumentei o padding de baixo para subir o chat */
+            padding: 15px 15px 75px 15px; /* FOLGA GRANDE PARA SUBIR O CHAT */
             background: var(--ssj4-dark); 
             display: flex; 
             gap: 10px; 
             align-items: center; 
             border-top: 1px solid #333;
-            min-height: 90px;
             z-index: 10;
         }
         #chat-msg-input { flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 5px; color: white; outline: none; }
@@ -224,7 +202,14 @@
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
 <script>
-    const firebaseConfig = { apiKey: "A", authDomain: "A", projectId: "A", storageBucket: "A", messagingSenderId: "A", appId: "A" };
+    const firebaseConfig = {
+      apiKey: "AIzaSyCkzu5uIY88m2WbLXTaczE_feBYPNUnHBo",
+      authDomain: "songoku-9b831.firebaseapp.com",
+      projectId: "songoku-9b831",
+      storageBucket: "songoku-9b831.firebasestorage.app",
+      messagingSenderId: "188094830557",
+      appId: "1:188094830557:web:451b0be3fd5646c32ac834"
+    };
     let db;
     try { firebase.initializeApp(firebaseConfig); db = firebase.firestore(); } catch(e) { console.log("Firebase Offline"); }
 
@@ -314,8 +299,8 @@
         } 
     }
 
-    function openNews() { closePanels(); document.getElementById('news-panel').classList.add('active'); }
-    function toggleAdminPanel() { closePanels(); document.getElementById('admin-panel').classList.add('active'); }
+    function openNews() { closePanels(); setTimeout(() => { document.getElementById('news-panel').classList.add('active'); }, 50); }
+    function toggleAdminPanel() { closePanels(); setTimeout(() => { document.getElementById('admin-panel').classList.add('active'); }, 50); }
     function closePanels() { 
         document.getElementById('news-panel').classList.remove('active'); 
         document.getElementById('admin-panel').classList.remove('active'); 
@@ -333,14 +318,18 @@
     function publishNews() {
         const t = document.getElementById('news-title').value;
         const b = document.getElementById('news-body').value;
-        if(db) db.collection("noticias").add({ title: t, body: b, type: 'news', timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-        closePanels();
+        if(db && t) { 
+            db.collection("noticias").add({ title: t, body: b, type: 'news', timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+            .then(() => { closePanels(); document.getElementById('news-title').value = ""; document.getElementById('news-body').value = ""; });
+        }
     }
 
     function publishPoll() {
         const q = document.getElementById('poll-q').value;
-        if(db) db.collection("noticias").add({ title: q, type: 'poll', timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-        closePanels();
+        if(db && q) { 
+            db.collection("noticias").add({ title: q, type: 'poll', timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+            .then(() => { closePanels(); document.getElementById('poll-q').value = ""; });
+        }
     }
 
     function initNews() {
